@@ -11,25 +11,20 @@ builder.Services.AddSwaggerGen();
 
 // REGISTRO DE SERVICIOS
 builder.Services.AddHttpClient<ClienteValidationService>();  // HttpClient para ClienteValidationService
-builder.Services.AddScoped<ClienteValidationService>();      // Inyecta ClienteValidationService
 
-// Configurar SQLite para ClienteDbContext
+// Configurar SQLite en un solo DbContext que maneja Clientes y Pólizas
 builder.Services.AddDbContext<ClienteDbContext>(options =>
     options.UseSqlite("Data Source=clientes.db"));
 
-// Elimina ClienteDataStore porque ahora usas una base de datos
-// builder.Services.AddSingleton<ClienteDataStore>();  // YA NO ES NECESARIO
-
-// MANTÉN PolizaDataStore si aún no migraste Poliza a SQLite
-builder.Services.AddSingleton<PolizaDataStore>();   
+// 🔹 Eliminamos ClienteDataStore y PolizaDataStore ya que ahora usamos SQLite
 
 var app = builder.Build();
 
-// Asegurar que las migraciones se apliquen al iniciar la aplicación
+// Aplicar migraciones automáticamente al iniciar la API
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ClienteDbContext>();
-    dbContext.Database.Migrate(); // Aplica migraciones automáticamente
+    dbContext.Database.Migrate();
 }
 
 // Habilita Swagger en cualquier entorno

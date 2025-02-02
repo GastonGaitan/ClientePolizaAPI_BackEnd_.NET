@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClientePolizasAPI.Migrations
 {
     [DbContext(typeof(ClienteDbContext))]
-    [Migration("20250202173634_Inicial")]
+    [Migration("20250202183311_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -50,6 +50,42 @@ namespace ClientePolizasAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("ClientePolizasAPI.Models.Poliza", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Auto")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Costo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FechaVigencia")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdCliente")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCliente");
+
+                    b.ToTable("Polizas");
+                });
+
+            modelBuilder.Entity("ClientePolizasAPI.Models.Poliza", b =>
+                {
+                    b.HasOne("ClientePolizasAPI.Models.Cliente", null)
+                        .WithMany()
+                        .HasForeignKey("IdCliente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

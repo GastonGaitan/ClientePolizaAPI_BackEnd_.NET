@@ -11,9 +11,9 @@ namespace ClientePolizasAPI.Controllers
     [Route("api/[controller]")]
     public class PolizaController : ControllerBase
     {
-        private readonly PolizaDbContext _context;
+        private readonly ClienteDbContext _context; // Reemplazar PolizaDbContext por ClienteDbContext
 
-        public PolizaController(PolizaDbContext context)
+        public PolizaController(ClienteDbContext context)
         {
             _context = context;
         }
@@ -44,7 +44,7 @@ namespace ClientePolizasAPI.Controllers
                 return BadRequest("La póliza no puede ser nula.");
 
             // Verificar si el cliente existe antes de asociarlo
-            var clienteExiste = await _context.Set<Cliente>().AnyAsync(c => c.Id == nuevaPoliza.IdCliente);
+            var clienteExiste = await _context.Clientes.AnyAsync(c => c.Id == nuevaPoliza.IdCliente);
             if (!clienteExiste)
                 return BadRequest($"El Cliente con ID {nuevaPoliza.IdCliente} no existe.");
 
@@ -79,7 +79,7 @@ namespace ClientePolizasAPI.Controllers
                     case "idcliente":
                         if (int.TryParse(campo.Value?.ToString(), out int nuevoIdCliente))
                         {
-                            var clienteExiste = await _context.Set<Cliente>().AnyAsync(c => c.Id == nuevoIdCliente);
+                            var clienteExiste = await _context.Clientes.AnyAsync(c => c.Id == nuevoIdCliente);
                             if (!clienteExiste)
                                 return BadRequest($"El Cliente con ID {nuevoIdCliente} no existe.");
                             
