@@ -10,19 +10,23 @@ namespace ClientePolizasAPI.Controllers
     [Route("api/[controller]")]
     public class PolizaController : ControllerBase
     {
+        // Inyectar el servicio de almacenamiento de pólizas
         private readonly PolizaDataStore _polizaDataStore;
 
+        // Constructor con inyección de dependencias
         public PolizaController(PolizaDataStore polizaDataStore)
         {
             _polizaDataStore = polizaDataStore;
         }
 
+        // Mostrar polizas
         [HttpGet]
         public ActionResult<List<Poliza>> GetPolizas()
         {
             return Ok(_polizaDataStore.Polizas);
         }
 
+        // Filtrar poliza por ID
         [HttpGet("{id}")]
         public ActionResult<Poliza> GetPolizaPorId(int id)
         {
@@ -33,6 +37,7 @@ namespace ClientePolizasAPI.Controllers
             return Ok(poliza);
         }
 
+        // Crear poliza
         [HttpPost]
         public ActionResult<Poliza> AgregarPoliza([FromBody] Poliza nuevaPoliza)
         {
@@ -48,6 +53,7 @@ namespace ClientePolizasAPI.Controllers
             return CreatedAtAction(nameof(GetPolizaPorId), new { id = nuevaPoliza.Id }, nuevaPoliza);
         }
 
+        // Actualizar póliza completa
         [HttpPatch("{id}")]
         public ActionResult<Poliza> ActualizarPolizaParcial(int id, [FromBody] Dictionary<string, object> camposActualizados)
         {
@@ -80,7 +86,7 @@ namespace ClientePolizasAPI.Controllers
             return Ok(polizaExistente);
         }
 
-
+        // Eliminar póliza
         [HttpDelete("{id}")]
         public ActionResult EliminarPoliza(int id)
         {

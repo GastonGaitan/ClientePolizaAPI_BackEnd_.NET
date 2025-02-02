@@ -13,7 +13,10 @@ namespace ClientePolizasAPI.Controllers
     [Route("api/[controller]")] // Ruta base: /api/Cliente
     public class ClienteController : ControllerBase
     {
+        // Inyectar el servicio de almacenamiento de clientes
         private readonly ClienteDataStore _dataStore = ClienteDataStore.Current;
+
+        // Inyectar el servicio de validación de clientes
         private readonly ClienteValidationService _validationService;
 
         // Constructor con inyección de dependencias
