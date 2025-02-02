@@ -21,29 +21,6 @@ if (app.Environment.IsDevelopment())
 // Redirige a HTTPS (puedes comentarlo si da problemas)
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-// Endpoint principal de la API
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
-// Agrega una ruta de bienvenida para evitar el error 404 en "/"
-app.MapGet("/", () => "Bienvenido a la API. Visita /weatherforecast o /swagger para más información.");
-
 app.Run();
 
 // Clase para el endpoint /weatherforecast
