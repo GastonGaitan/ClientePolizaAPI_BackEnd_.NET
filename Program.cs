@@ -14,7 +14,7 @@ builder.Services.AddHttpClient<ClienteValidationService>();  // HttpClient para 
 
 // Configurar SQLite en un solo DbContext que maneja Clientes y Pólizas
 builder.Services.AddDbContext<ClienteDbContext>(options =>
-    options.UseSqlite("Data Source=clientes.db"));
+    options.UseSqlite("Data Source=ClientePolizas.db"));
 
 // 🔹 Eliminamos ClienteDataStore y PolizaDataStore ya que ahora usamos SQLite
 

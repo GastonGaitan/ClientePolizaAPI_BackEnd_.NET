@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClientePolizasAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c521a2ce5b8f0c1d8968f61854e8169a9f7aa84")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4baccfd0d892654493c05817aff95722a638e81")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClientePolizasAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClientePolizasAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
