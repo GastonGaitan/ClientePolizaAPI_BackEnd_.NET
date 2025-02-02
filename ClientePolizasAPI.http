@@ -1,0 +1,6 @@
+@ClientePolizasAPI_HostAddress = http://localhost:5276
+
+GET {{ClientePolizasAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

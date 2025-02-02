@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "EFf59prSM8T3fViL+RgkfWLSU/V5q4np4hwNX2uFANg=",
+  "Source": "ClientePolizasAPI",
+  "BasePath": "_content/ClientePolizasAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
