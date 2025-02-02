@@ -24,11 +24,16 @@ namespace ClientePolizasAPI.Controllers
             return Ok(cliente);
         }
 
-        [HttpPost]
+         [HttpPost]
         public ActionResult<Cliente> AgregarCliente([FromBody] Cliente nuevoCliente)
         {
             if (nuevoCliente == null)
                 return BadRequest("El cliente no puede ser nulo.");
+
+            // Verificar si el DNI ya existe en la lista
+            var existeCliente = _dataStore.Clientes.Any(c => c.DNI == nuevoCliente.DNI);
+            if (existeCliente)
+                return BadRequest($"El DNI {nuevoCliente.DNI} ya está registrado en otro cliente.");
 
             // Generar un nuevo ID automáticamente
             int nuevoId = _dataStore.Clientes.Count > 0 ? _dataStore.Clientes.Max(c => c.Id) + 1 : 1;
@@ -38,6 +43,8 @@ namespace ClientePolizasAPI.Controllers
 
             return CreatedAtAction(nameof(GetClientePorId), new { id = nuevoCliente.Id }, nuevoCliente);
         }
+
+        
         
     }
 }
