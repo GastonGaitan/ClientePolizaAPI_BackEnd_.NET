@@ -34,3 +34,4 @@ C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\n
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.sourcelink.json
