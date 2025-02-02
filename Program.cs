@@ -10,17 +10,27 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // REGISTRO DE SERVICIOS
-builder.Services.AddHttpClient<ClienteValidationService>();  // Registra HttpClient para ClienteValidationService
-builder.Services.AddScoped<ClienteValidationService>();  // Inyecta ClienteValidationService
+builder.Services.AddHttpClient<ClienteValidationService>();  // HttpClient para ClienteValidationService
+builder.Services.AddScoped<ClienteValidationService>();      // Inyecta ClienteValidationService
+
+// Configurar SQLite para ClienteDbContext
 builder.Services.AddDbContext<ClienteDbContext>(options =>
     options.UseSqlite("Data Source=clientes.db"));
 
+// Elimina ClienteDataStore porque ahora usas una base de datos
+// builder.Services.AddSingleton<ClienteDataStore>();  // YA NO ES NECESARIO
 
-// REGISTRO DE DATASTORES COMO SINGLETON
-builder.Services.AddSingleton<ClienteDataStore>();  // Registro de ClienteDataStore
-builder.Services.AddSingleton<PolizaDataStore>();   // Registro de PolizaDataStore
+// MANTÉN PolizaDataStore si aún no migraste Poliza a SQLite
+builder.Services.AddSingleton<PolizaDataStore>();   
 
 var app = builder.Build();
+
+// Asegurar que las migraciones se apliquen al iniciar la aplicación
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ClienteDbContext>();
+    dbContext.Database.Migrate(); // Aplica migraciones automáticamente
+}
 
 // Habilita Swagger en cualquier entorno
 if (app.Environment.IsDevelopment())
@@ -30,9 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization(); // Si agregas autenticación en el futuro
-
+app.UseAuthorization();
 app.MapControllers(); // REGISTRA LOS CONTROLADORES
 
 app.Run();
