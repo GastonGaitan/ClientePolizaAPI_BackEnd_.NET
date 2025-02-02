@@ -35,7 +35,7 @@ namespace ClientePolizasAPI.Controllers
             if (existeCliente)
                 return BadRequest($"El DNI {nuevoCliente.DNI} ya está registrado en otro cliente.");
 
-            // Generar un nuevo ID automáticamente
+            // Generar un nuevo ID automaticamente
             int nuevoId = _dataStore.Clientes.Count > 0 ? _dataStore.Clientes.Max(c => c.Id) + 1 : 1;
             nuevoCliente.Id = nuevoId;
 
