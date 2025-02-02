@@ -44,6 +44,40 @@ namespace ClientePolizasAPI.Controllers
             return CreatedAtAction(nameof(GetClientePorId), new { id = nuevoCliente.Id }, nuevoCliente);
         }
 
+        [HttpPatch("{id}")]
+        public ActionResult<Cliente> ActualizarClienteParcial(int id, [FromBody] Dictionary<string, object> camposActualizados)
+        {
+            var clienteExistente = _dataStore.Clientes.FirstOrDefault(c => c.Id == id);
+            if (clienteExistente == null)
+                return NotFound($"No se encontró un cliente con ID {id}.");
+
+            // Validar cada campo recibido en la solicitud
+            foreach (var campo in camposActualizados)
+            {
+                switch (campo.Key.ToLower())
+                {
+                    case "nombre":
+                        clienteExistente.Nombre = campo.Value?.ToString() ?? clienteExistente.Nombre;
+                        break;
+                    case "apellido":
+                        clienteExistente.Apellido = campo.Value?.ToString() ?? clienteExistente.Apellido;
+                        break;
+                    case "dni":
+                        var nuevoDNI = campo.Value?.ToString();
+                        if (!string.IsNullOrEmpty(nuevoDNI) && _dataStore.Clientes.Any(c => c.DNI == nuevoDNI && c.Id != id))
+                            return BadRequest($"El DNI {nuevoDNI} ya está registrado en otro cliente.");
+                        clienteExistente.DNI = nuevoDNI ?? clienteExistente.DNI;
+                        break;
+                    case "fechadenacimiento":
+                        clienteExistente.FechaDeNacimiento = campo.Value?.ToString() ?? clienteExistente.FechaDeNacimiento;
+                        break;
+                }
+            }
+
+            return Ok(clienteExistente);
+        }
+
+
         
         
     }
