@@ -22,12 +22,14 @@ namespace ClientePolizasAPI.Controllers
             _validationService = validationService;
         }
 
+        // Mostrar clientes
         [HttpGet]
         public ActionResult<List<Cliente>> GetClientes()
         {
             return Ok(_dataStore.Clientes);
         }
 
+        // Filtrar cliente por ID
         [HttpGet("{id}")]
         public ActionResult<Cliente> GetClientePorId(int id)
         {
@@ -37,6 +39,7 @@ namespace ClientePolizasAPI.Controllers
             return Ok(cliente);
         }
 
+        // Crear cliente
         [HttpPost]
         public async Task<ActionResult<Cliente>> AgregarCliente([FromBody] Cliente nuevoCliente)
         {
@@ -62,6 +65,7 @@ namespace ClientePolizasAPI.Controllers
             return CreatedAtAction(nameof(GetClientePorId), new { id = nuevoCliente.Id }, nuevoCliente);
         }
 
+        // Actualizar data del cliente
         [HttpPatch("{id}")]
         public ActionResult<Cliente> ActualizarClienteParcial(int id, [FromBody] Dictionary<string, object> camposActualizados)
         {
@@ -94,5 +98,20 @@ namespace ClientePolizasAPI.Controllers
 
             return Ok(clienteExistente);
         }
+    
+        // Eliminar cliente
+        [HttpDelete("{id}")]
+        public ActionResult EliminarCliente(int id)
+        {
+            var cliente = _dataStore.Clientes.FirstOrDefault(c => c.Id == id);
+            if (cliente == null)
+                return NotFound($"No se encontró un cliente con ID {id}.");
+
+            _dataStore.Clientes.Remove(cliente); // Eliminamos el cliente de la lista
+
+            return NoContent(); // 204 No Content es la respuesta estándar para eliminaciones exitosas
+        }
+
+    
     }
 }
