@@ -7,9 +7,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// REGISTRO DEL SERVICIO ClienteValidationService
+// REGISTRO DE SERVICIOS
 builder.Services.AddHttpClient<ClienteValidationService>();  // Registra HttpClient para ClienteValidationService
-builder.Services.AddScoped<ClienteValidationService>();  // Asegura que ClienteValidationService sea inyectado
+builder.Services.AddScoped<ClienteValidationService>();  // Inyecta ClienteValidationService
+
+// REGISTRO DE DATASTORES COMO SINGLETON
+builder.Services.AddSingleton<ClienteDataStore>();  // Registro de ClienteDataStore
+builder.Services.AddSingleton<PolizaDataStore>();   // Registro de PolizaDataStore
 
 var app = builder.Build();
 
