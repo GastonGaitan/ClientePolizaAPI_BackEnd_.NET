@@ -33,7 +33,7 @@ namespace ClientePolizasAPI.Controllers
             // Verificar si el DNI ya existe en la lista
             var existeCliente = _dataStore.Clientes.Any(c => c.DNI == nuevoCliente.DNI);
             if (existeCliente)
-                return BadRequest($"El DNI {nuevoCliente.DNI} ya está registrado en otro cliente.");
+                return BadRequest($"El DNI {nuevoCliente.DNI} ya esta registrado en otro cliente.");
 
             // Generar un nuevo ID automaticamente
             int nuevoId = _dataStore.Clientes.Count > 0 ? _dataStore.Clientes.Max(c => c.Id) + 1 : 1;
