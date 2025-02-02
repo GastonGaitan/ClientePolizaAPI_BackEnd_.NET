@@ -8,6 +8,9 @@ C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\n
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\ClientePolizasAPI.pdb
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.csproj.AssemblyReference.cache
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.AssemblyInfoInputs.cache
@@ -15,6 +18,7 @@ C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\n
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.csproj.CoreCompileInputs.cache
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.sourcelink.json
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\scopedcss\bundle\ClientePolizasAPI.styles.css
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\staticwebassets.development.json
@@ -31,7 +35,3 @@ C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\n
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.pdb
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.genruntimeconfig.cache
 C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ref\ClientePolizasAPI.dll
-C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
-C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\gasto\OneDrive\Desktop\Cliente Poliza API\ClientePolizasAPI\obj\Debug\net9.0\ClientePolizasAPI.sourcelink.json

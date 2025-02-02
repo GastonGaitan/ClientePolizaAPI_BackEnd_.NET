@@ -1,15 +1,27 @@
-using ClientePolizasAPI.Models;
-using ClientePolizasAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using ClientePolizasAPI.Models;
 
 namespace ClientePolizasAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class ClienteController: ControllerBase {
+    [Route("api/[controller]")] // Ruta base: /api/Cliente
+    public class ClienteController : ControllerBase
+    {
+        private readonly ClienteDataStore _dataStore = ClienteDataStore.Current;
+
         [HttpGet]
-        public ActionResult<IEnumerable<Cliente>> GetClientes() {
-            return Ok(ClienteDataStore.Current.Clientes);
+        public ActionResult<List<Cliente>> GetClientes()
+        {
+            return Ok(_dataStore.Clientes);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Cliente> GetClientePorId(int id)
+        {
+            var cliente = _dataStore.Clientes.FirstOrDefault(c => c.Id == id);
+            if (cliente == null)
+                return NotFound();
+            return Ok(cliente);
         }
     }
 }
