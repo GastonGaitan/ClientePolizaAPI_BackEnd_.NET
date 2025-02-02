@@ -23,5 +23,21 @@ namespace ClientePolizasAPI.Controllers
                 return NotFound();
             return Ok(cliente);
         }
+
+        [HttpPost]
+        public ActionResult<Cliente> AgregarCliente([FromBody] Cliente nuevoCliente)
+        {
+            if (nuevoCliente == null)
+                return BadRequest("El cliente no puede ser nulo.");
+
+            // Generar un nuevo ID automáticamente
+            int nuevoId = _dataStore.Clientes.Count > 0 ? _dataStore.Clientes.Max(c => c.Id) + 1 : 1;
+            nuevoCliente.Id = nuevoId;
+
+            _dataStore.Clientes.Add(nuevoCliente);
+
+            return CreatedAtAction(nameof(GetClientePorId), new { id = nuevoCliente.Id }, nuevoCliente);
+        }
+        
     }
 }
