@@ -1,4 +1,6 @@
+using ClientePolizasAPI.Models;
 using ClientePolizasAPI.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services.AddSwaggerGen();
 // REGISTRO DE SERVICIOS
 builder.Services.AddHttpClient<ClienteValidationService>();  // Registra HttpClient para ClienteValidationService
 builder.Services.AddScoped<ClienteValidationService>();  // Inyecta ClienteValidationService
+builder.Services.AddDbContext<ClienteDbContext>(options =>
+    options.UseSqlite("Data Source=clientes.db"));
+
 
 // REGISTRO DE DATASTORES COMO SINGLETON
 builder.Services.AddSingleton<ClienteDataStore>();  // Registro de ClienteDataStore
