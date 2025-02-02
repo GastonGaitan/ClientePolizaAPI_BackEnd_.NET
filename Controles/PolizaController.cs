@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using ClientePolizasAPI.Models;
-using ClientePolizasAPI.Services;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ClientePolizasAPI.Controllers
 {
@@ -10,58 +11,57 @@ namespace ClientePolizasAPI.Controllers
     [Route("api/[controller]")]
     public class PolizaController : ControllerBase
     {
-        // Inyectar el servicio de almacenamiento de pólizas
-        private readonly PolizaDataStore _polizaDataStore;
+        private readonly PolizaDbContext _context;
 
-        // Constructor con inyección de dependencias
-        public PolizaController(PolizaDataStore polizaDataStore)
+        public PolizaController(PolizaDbContext context)
         {
-            _polizaDataStore = polizaDataStore;
+            _context = context;
         }
 
-        // Mostrar polizas
+        // Obtener todas las pólizas
         [HttpGet]
-        public ActionResult<List<Poliza>> GetPolizas()
+        public async Task<ActionResult<List<Poliza>>> GetPolizas()
         {
-            return Ok(_polizaDataStore.Polizas);
+            return await _context.Polizas.ToListAsync();
         }
 
-        // Filtrar poliza por ID
+        // Obtener póliza por ID
         [HttpGet("{id}")]
-        public ActionResult<Poliza> GetPolizaPorId(int id)
+        public async Task<ActionResult<Poliza>> GetPolizaPorId(int id)
         {
-            var poliza = _polizaDataStore.Polizas.FirstOrDefault(p => p.Id == id);
+            var poliza = await _context.Polizas.FindAsync(id);
             if (poliza == null)
                 return NotFound($"No se encontró una póliza con ID {id}.");
-
+            
             return Ok(poliza);
         }
 
-        // Crear poliza
+        // Crear póliza
         [HttpPost]
-        public ActionResult<Poliza> AgregarPoliza([FromBody] Poliza nuevaPoliza)
+        public async Task<ActionResult<Poliza>> AgregarPoliza([FromBody] Poliza nuevaPoliza)
         {
             if (nuevaPoliza == null)
                 return BadRequest("La póliza no puede ser nula.");
 
-            // Generar un nuevo ID automáticamente
-            int nuevoId = _polizaDataStore.Polizas.Count > 0 ? _polizaDataStore.Polizas.Max(p => p.Id) + 1 : 1;
-            nuevaPoliza.Id = nuevoId;
+            // Verificar si el cliente existe antes de asociarlo
+            var clienteExiste = await _context.Set<Cliente>().AnyAsync(c => c.Id == nuevaPoliza.IdCliente);
+            if (!clienteExiste)
+                return BadRequest($"El Cliente con ID {nuevaPoliza.IdCliente} no existe.");
 
-            _polizaDataStore.Polizas.Add(nuevaPoliza);
+            _context.Polizas.Add(nuevaPoliza);
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetPolizaPorId), new { id = nuevaPoliza.Id }, nuevaPoliza);
         }
 
-        // Actualizar póliza completa
+        // Actualizar póliza parcialmente
         [HttpPatch("{id}")]
-        public ActionResult<Poliza> ActualizarPolizaParcial(int id, [FromBody] Dictionary<string, object> camposActualizados)
+        public async Task<ActionResult<Poliza>> ActualizarPolizaParcial(int id, [FromBody] Dictionary<string, object> camposActualizados)
         {
-            var polizaExistente = _polizaDataStore.Polizas.FirstOrDefault(p => p.Id == id);
+            var polizaExistente = await _context.Polizas.FindAsync(id);
             if (polizaExistente == null)
                 return NotFound($"No se encontró una póliza con ID {id}.");
 
-            // Validar y actualizar cada campo recibido en la solicitud
             foreach (var campo in camposActualizados)
             {
                 switch (campo.Key.ToLower())
@@ -78,25 +78,33 @@ namespace ClientePolizasAPI.Controllers
                         break;
                     case "idcliente":
                         if (int.TryParse(campo.Value?.ToString(), out int nuevoIdCliente))
+                        {
+                            var clienteExiste = await _context.Set<Cliente>().AnyAsync(c => c.Id == nuevoIdCliente);
+                            if (!clienteExiste)
+                                return BadRequest($"El Cliente con ID {nuevoIdCliente} no existe.");
+                            
                             polizaExistente.IdCliente = nuevoIdCliente;
+                        }
                         break;
                 }
             }
 
+            await _context.SaveChangesAsync();
             return Ok(polizaExistente);
         }
 
         // Eliminar póliza
         [HttpDelete("{id}")]
-        public ActionResult EliminarPoliza(int id)
+        public async Task<ActionResult> EliminarPoliza(int id)
         {
-            var poliza = _polizaDataStore.Polizas.FirstOrDefault(p => p.Id == id);
+            var poliza = await _context.Polizas.FindAsync(id);
             if (poliza == null)
                 return NotFound($"No se encontró una póliza con ID {id}.");
 
-            _polizaDataStore.Polizas.Remove(poliza);
+            _context.Polizas.Remove(poliza);
+            await _context.SaveChangesAsync();
 
-            return NoContent(); // Código HTTP 204 (sin contenido)
+            return NoContent();
         }
     }
 }
