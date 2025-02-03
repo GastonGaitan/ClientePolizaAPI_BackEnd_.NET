@@ -18,6 +18,18 @@ builder.Services.AddDbContext<ClienteDbContext>(options =>
 
 // 🔹 Eliminamos ClienteDataStore y PolizaDataStore ya que ahora usamos SQLite
 
+// 🔹 Agrega CORS aquí
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
+
 var app = builder.Build();
 
 // Aplicar migraciones automáticamente al iniciar la API
@@ -35,6 +47,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// 🔹 Aplica CORS antes de Authorization
+app.UseCors("AllowAll");
+
 app.UseAuthorization();
 app.MapControllers(); // REGISTRA LOS CONTROLADORES
 
